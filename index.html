@@ -21,19 +21,25 @@
 
     header {
       background-color: #fff;
-      padding: 2rem 1rem;
-      text-align: center;
+      padding: 1.5rem 2rem;
       box-shadow: 0 1px 6px rgba(0, 0, 0, 0.1);
     }
 
-    header img.logo {
-      height: 60px;
-      margin-bottom: 1rem;
+    .header-content {
+      max-width: 960px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
     }
 
-    header h1 {
+    .logo {
+      height: 90px;
+    }
+
+    .header-content h1 {
       margin: 0;
-      font-size: 2.2rem;
+      font-size: 2.4rem;
       color: #2c2c2c;
     }
 
@@ -49,9 +55,7 @@
 
     .images {
       display: flex;
-      flex-wrap: wrap;
       justify-content: center;
-      gap: 1rem;
       margin-bottom: 2rem;
     }
 
@@ -94,7 +98,15 @@
     @media (max-width: 600px) {
       .images {
         flex-direction: column;
-        align-items: center;
+      }
+
+      .header-content {
+        flex-direction: column;
+        text-align: center;
+      }
+
+      .logo {
+        height: 70px;
       }
     }
   </style>
@@ -102,8 +114,10 @@
 <body>
 
   <header>
-    <img src="logo.png" alt="Logo ErazShop" class="logo">
-    <h1>ErazShop</h1>
+    <div class="header-content">
+      <img src="logo.png" alt="Logo ErazShop" class="logo">
+      <h1>ErazShop</h1>
+    </div>
   </header>
 
   <!-- Produit 1 : Gourde -->
