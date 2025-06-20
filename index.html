@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>ErazShop – Gourde AirUp</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>ErazShop – Boutique en ligne</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet" />
   <style>
     body {
       margin: 0;
@@ -17,7 +17,7 @@
       background-color: #fff;
       padding: 2rem;
       text-align: center;
-      box-shadow: 0 1px 6px rgba(0,0,0,0.1);
+      box-shadow: 0 1px 6px rgba(0, 0, 0, 0.1);
     }
 
     header h1 {
@@ -32,7 +32,8 @@
       padding: 1rem;
       background: white;
       border-radius: 8px;
-      box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+      margin-bottom: 4rem;
     }
 
     .images {
@@ -40,23 +41,23 @@
       flex-wrap: wrap;
       justify-content: center;
       gap: 1rem;
+      margin-bottom: 2rem;
     }
 
     .images img {
       max-width: 180px;
       border-radius: 6px;
-      box-shadow: 0 0 10px rgba(0,0,0,0.05);
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
     }
 
     .description {
       text-align: center;
-      padding: 2rem 1rem;
+      padding: 1rem;
     }
 
     .description h2 {
-      font-size: 1.6rem;
+      font-size: 1.5rem;
       margin-bottom: 1rem;
-      color: #222;
     }
 
     .description p {
@@ -93,9 +94,15 @@
     <h1>ErazShop</h1>
   </header>
 
+  <!-- Produit 1 : Gourde -->
   <div class="container">
     <div class="images">
-      <img src="IMG_1279.jpeg" alt="Gourde noire">
+      <img src="/mnt/data/0EC7D9B7-110C-4C1B-90DC-1E75D2B428C2.jpeg" alt="Gourde noire">
+      <img src="/mnt/data/69C3D6E7-8B8C-4923-A9A4-5B15F944B391.jpeg" alt="Gourde verte">
+      <img src="/mnt/data/95F68376-5D3C-4785-A1AB-90FBD48F8C1C.jpeg" alt="Gourde bleue">
+      <img src="/mnt/data/FA07F7EC-30A7-44F1-9C00-4EE744A5C9C6.jpeg" alt="Gourde orange">
+      <img src="/mnt/data/A2471D4A-C3A5-4A31-ABD5-9BCD7595F28B.jpeg" alt="Gourde orange bis">
+      <img src="/mnt/data/F0E49EC8-0CFF-4D77-86D6-E936BFD12856.jpeg" alt="Gourde rose">
     </div>
 
     <div class="description">
@@ -116,8 +123,32 @@
     </div>
   </div>
 
+  <!-- Produit 2 : Baskets -->
+  <div class="container">
+    <div class="images">
+      <img src="basket.jpg" alt="Baskets REACTIVE">
+    </div>
+
+    <div class="description">
+      <h2>Baskets de sport REACTIVE™ – Confort dynamique et style dégradé</h2>
+      <p>
+        Baskets de sport REACTIVE™ au design dégradé orange et vert. Confort maximal grâce à une semelle amortissante
+        et une tige en maille respirante. Idéales pour le sport, la marche ou un usage quotidien. Style moderne et
+        performance réunis.
+      </p>
+    </div>
+
+    <div class="buy">
+      <script async src="https://js.stripe.com/v3/buy-button.js"></script>
+      <stripe-buy-button
+        buy-button-id="buy_btn_1Rc5XsCOWsHWoBEG2nv9HMNE"
+        publishable-key="pk_live_51Rb21ICOWsHWoBEGmAY8BEDjuDe7KjsHoTY4hzhve9aiZd0tUaQoaIEG3aoGHHnwjtc8VrEBDJrIZReI0CTVLYqQ00fikEjr67">
+      </stripe-buy-button>
+    </div>
+  </div>
+
   <footer>
-    &copy; 2025 – ErazShop - tout droit réservé
+    &copy; 2025 – ErazShop – Tous droits réservés
   </footer>
 
 </body>
