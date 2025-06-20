@@ -12,6 +12,7 @@
   <link rel="icon" href="favicon.ico" type="image/x-icon" />
 
   <style>
+    /* ----- Mode clair (par défaut) ----- */
     :root {
       --bg-color: #f6f6f6;
       --text-color: #333;
@@ -20,12 +21,15 @@
       --title-color: #2c2c2c;
     }
 
-    body.dark {
-      --bg-color: #121212;
-      --text-color: #e0e0e0;
-      --card-bg: #1e1e1e;
-      --card-shadow: rgba(0, 0, 0, 0.3);
-      --title-color: #ffffff;
+    /* ----- Mode sombre (automatique si système en dark mode) ----- */
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --bg-color: #121212;
+        --text-color: #e0e0e0;
+        --card-bg: #1e1e1e;
+        --card-shadow: rgba(0, 0, 0, 0.3);
+        --title-color: #ffffff;
+      }
     }
 
     body {
@@ -33,40 +37,24 @@
       font-family: 'Inter', sans-serif;
       background-color: var(--bg-color);
       color: var(--text-color);
-      transition: background-color 0.3s, color 0.3s;
     }
 
     header {
       background-color: var(--card-bg);
-      padding: 1.5rem 1rem;
+      padding: 2rem 1rem;
       text-align: center;
       box-shadow: 0 1px 6px var(--card-shadow);
-      position: relative;
     }
 
     header img.logo {
       height: 60px;
-      margin-bottom: 0.5rem;
+      margin-bottom: 1rem;
     }
 
     header h1 {
       margin: 0;
       font-size: 2.2rem;
       color: var(--title-color);
-    }
-
-    .theme-toggle {
-      position: absolute;
-      top: 1.5rem;
-      right: 1.5rem;
-      background: none;
-      border: 1px solid var(--text-color);
-      color: var(--text-color);
-      padding: 0.4rem 0.8rem;
-      border-radius: 5px;
-      cursor: pointer;
-      font-size: 0.9rem;
-      transition: background 0.3s, color 0.3s;
     }
 
     .container {
@@ -129,11 +117,6 @@
         flex-direction: column;
         align-items: center;
       }
-
-      .theme-toggle {
-        top: 1rem;
-        right: 1rem;
-      }
     }
   </style>
 </head>
@@ -142,7 +125,6 @@
   <header>
     <img src="logo.png" alt="Logo ErazShop" class="logo">
     <h1>ErazShop</h1>
-    <button class="theme-toggle" onclick="toggleTheme()">Changer de mode</button>
   </header>
 
   <!-- Produit 1 : Gourde -->
@@ -195,41 +177,6 @@
   <footer>
     &copy; 2025 – ErazShop – Tous droits réservés
   </footer>
-
-  <script>
-    function applyTheme(theme) {
-      if (theme === "dark") {
-        document.body.classList.add("dark");
-      } else {
-        document.body.classList.remove("dark");
-      }
-    }
-
-    function toggleTheme() {
-      const current = localStorage.getItem("theme") || "auto";
-      let next;
-      if (current === "auto") next = "dark";
-      else if (current === "dark") next = "light";
-      else next = "auto";
-
-      localStorage.setItem("theme", next);
-      updateTheme();
-    }
-
-    function updateTheme() {
-      const preference = localStorage.getItem("theme") || "auto";
-      if (preference === "dark") {
-        applyTheme("dark");
-      } else if (preference === "light") {
-        applyTheme("light");
-      } else {
-        const isDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
-        applyTheme(isDark ? "dark" : "light");
-      }
-    }
-
-    updateTheme();
-  </script>
 
 </body>
 </html>
