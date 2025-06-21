@@ -12,7 +12,6 @@
   <link rel="icon" href="favicon.ico" type="image/x-icon" />
 
   <style>
-    /* ----- Mode clair (par défaut) ----- */
     :root {
       --bg-color: #f6f6f6;
       --text-color: #333;
@@ -21,7 +20,6 @@
       --title-color: #2c2c2c;
     }
 
-    /* ----- Mode sombre (automatique si système en dark mode) ----- */
     @media (prefers-color-scheme: dark) {
       :root {
         --bg-color: #121212;
@@ -132,7 +130,6 @@
     <div class="images">
       <img src="images/gourde.jpeg" alt="Gourde AirUp">
     </div>
-
     <div class="description">
       <h2>Gourde à rétro olfaction de type « AirUp »</h2>
       <p>
@@ -141,7 +138,6 @@
         Équipée d’une paille étanche, elle est idéale pour les activités de plein air.
       </p>
     </div>
-
     <div class="buy">
       <script async src="https://js.stripe.com/v3/buy-button.js"></script>
       <stripe-buy-button
@@ -156,7 +152,6 @@
     <div class="images">
       <img src="images/basket.jpg" alt="Baskets REACTIVE">
     </div>
-
     <div class="description">
       <h2>Baskets de sport REACTIVE™ – Confort dynamique et style dégradé</h2>
       <p>
@@ -165,10 +160,30 @@
         performance réunis.
       </p>
     </div>
-
     <div class="buy">
       <stripe-buy-button
         buy-button-id="buy_btn_1Rc5XsCOWsHWoBEG2nv9HMNE"
+        publishable-key="pk_live_51Rb21ICOWsHWoBEGmAY8BEDjuDe7KjsHoTY4hzhve9aiZd0tUaQoaIEG3aoGHHnwjtc8VrEBDJrIZReI0CTVLYqQ00fikEjr67">
+      </stripe-buy-button>
+    </div>
+  </div>
+
+  <!-- Produit 3 : Casque -->
+  <div class="container">
+    <div class="images">
+      <img src="images/casque.jpeg" alt="Casque Bluetooth P47">
+    </div>
+    <div class="description">
+      <h2>Casque Bluetooth P47 Sans F</h2>
+      <p>
+        Profitez d’un son clair et sans fil avec le casque Bluetooth P47. Doté de la technologie 5.0+EDR,
+        il offre une écoute fluide, des boutons intégrés pour la gestion de la musique et un design
+        pliable et élégant. Idéal pour un usage quotidien.
+      </p>
+    </div>
+    <div class="buy">
+      <stripe-buy-button
+        buy-button-id="buy_btn_1Rc8nOCOWsHWoBEGmQVZnG10"
         publishable-key="pk_live_51Rb21ICOWsHWoBEGmAY8BEDjuDe7KjsHoTY4hzhve9aiZd0tUaQoaIEG3aoGHHnwjtc8VrEBDJrIZReI0CTVLYqQ00fikEjr67">
       </stripe-buy-button>
     </div>
