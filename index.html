@@ -18,6 +18,8 @@
       --card-bg: #fff;
       --card-shadow: rgba(0, 0, 0, 0.05);
       --title-color: #2c2c2c;
+      --accent: #7a4e00;
+      --accent-bg: #ffefc5;
     }
 
     @media (prefers-color-scheme: dark) {
@@ -27,10 +29,8 @@
         --card-bg: #1e1e1e;
         --card-shadow: rgba(0, 0, 0, 0.3);
         --title-color: #ffffff;
-      .announcement {
-        background-color: #3b2e00;
-        color: #ffdf8f;
-        border-bottom: 1px solid #6b5600;
+        --accent: #ffdf8f;
+        --accent-bg: #3b2e00;
       }
     }
 
@@ -39,6 +39,16 @@
       font-family: 'Inter', sans-serif;
       background-color: var(--bg-color);
       color: var(--text-color);
+    }
+
+    .announcement {
+      background-color: var(--accent-bg);
+      color: var(--accent);
+      text-align: center;
+      padding: 0.8rem 1rem;
+      font-weight: 600;
+      font-size: 1rem;
+      border-bottom: 1px solid #f2d287;
     }
 
     header {
@@ -58,16 +68,6 @@
       font-size: 2.2rem;
       color: var(--title-color);
     }
-
-    .announcement {
-        background-color: #ffefc5;
-        color: #7a4e00;
-        text-align: center;
-        padding: 0.8rem 1rem;
-        font-weight: 600;
-        font-size: 1rem;
-        border-bottom: 1px solid #f2d287;
-      }
 
     .container {
       max-width: 960px;
@@ -143,7 +143,6 @@
     <h1>ErazShop</h1>
   </header>
 
-
   <!-- Produit 1 : Gourde -->
   <div class="container">
     <div class="images">
@@ -193,7 +192,7 @@
       <img src="images/casque.jpeg" alt="Casque Bluetooth P47">
     </div>
     <div class="description">
-      <h2>Casque Bluetooth P47 Sans F</h2>
+      <h2>Casque Bluetooth P47 Sans Fil</h2>
       <p>
         Profitez d’un son clair et sans fil avec le casque Bluetooth P47. Doté de la technologie 5.0+EDR,
         il offre une écoute fluide, des boutons intégrés pour la gestion de la musique et un design
@@ -203,6 +202,28 @@
     <div class="buy">
       <stripe-buy-button
         buy-button-id="buy_btn_1Rc8nOCOWsHWoBEGmQVZnG10"
+        publishable-key="pk_live_51Rb21ICOWsHWoBEGmAY8BEDjuDe7KjsHoTY4hzhve9aiZd0tUaQoaIEG3aoGHHnwjtc8VrEBDJrIZReI0CTVLYqQ00fikEjr67">
+      </stripe-buy-button>
+    </div>
+  </div>
+
+  <!-- Produit 4 : Humidificateur -->
+  <div class="container">
+    <div class="images">
+      <img src="images/humidificateur.jpeg" alt="Humidificateur d'air">
+    </div>
+    <div class="description">
+      <h2>Humidificateur d'air portable avec éclairage LED multicolore</h2>
+      <p>
+        Profitez d’un air plus sain avec l’Humidilight Zen, un humidificateur compact au design élégant,
+        équipé d’un éclairage LED multicolore apaisant. Parfait pour la maison, le bureau ou la chambre,
+        il hydrate l’air tout en créant une ambiance relaxante. Silencieux, facile à utiliser et idéal
+        pour améliorer le confort au quotidien.
+      </p>
+    </div>
+    <div class="buy">
+      <stripe-buy-button
+        buy-button-id="buy_btn_1RcUVBCOWsHWoBEGCNEdp9Ah"
         publishable-key="pk_live_51Rb21ICOWsHWoBEGmAY8BEDjuDe7KjsHoTY4hzhve9aiZd0tUaQoaIEG3aoGHHnwjtc8VrEBDJrIZReI0CTVLYqQ00fikEjr67">
       </stripe-buy-button>
     </div>
