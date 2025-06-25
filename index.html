@@ -4,22 +4,18 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>ErazShop – Boutique en ligne</title>
-
-  <!-- Google Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet" />
-
-  <!-- Favicon -->
   <link rel="icon" href="favicon.ico" type="image/x-icon" />
 
   <style>
     :root {
-      --bg-color: #f6f6f6;
+      --bg-color: #f4f4f4;
       --text-color: #333;
       --card-bg: #fff;
-      --card-shadow: rgba(0, 0, 0, 0.05);
-      --title-color: #2c2c2c;
-      --accent: #7a4e00;
-      --accent-bg: #ffefc5;
+      --card-shadow: rgba(0, 0, 0, 0.1);
+      --title-color: #111;
+      --accent: #ff6a00;
+      --price-color: #28a745;
     }
 
     @media (prefers-color-scheme: dark) {
@@ -27,10 +23,10 @@
         --bg-color: #121212;
         --text-color: #e0e0e0;
         --card-bg: #1e1e1e;
-        --card-shadow: rgba(0, 0, 0, 0.3);
-        --title-color: #ffffff;
-        --accent: #ffdf8f;
-        --accent-bg: #3b2e00;
+        --card-shadow: rgba(0, 0, 0, 0.4);
+        --title-color: #fff;
+        --accent: #ffa447;
+        --price-color: #50fa7b;
       }
     }
 
@@ -42,18 +38,17 @@
     }
 
     .announcement {
-      background-color: var(--accent-bg);
-      color: var(--accent);
+      background-color: var(--accent);
+      color: white;
       text-align: center;
-      padding: 0.8rem 1rem;
-      font-weight: 600;
+      padding: 0.7rem 1rem;
+      font-weight: bold;
       font-size: 1rem;
-      border-bottom: 1px solid #f2d287;
     }
 
     header {
       background-color: var(--card-bg);
-      padding: 2rem 1rem;
+      padding: 2rem 1rem 1rem;
       text-align: center;
       box-shadow: 0 1px 6px var(--card-shadow);
     }
@@ -69,169 +64,156 @@
       color: var(--title-color);
     }
 
-    .container {
-      max-width: 960px;
-      margin: 3rem auto;
+    .search-bar {
+      text-align: center;
       padding: 1rem;
-      background: var(--card-bg);
-      border-radius: 8px;
-      box-shadow: 0 2px 10px var(--card-shadow);
-      margin-bottom: 4rem;
     }
 
-    .images {
+    .search-bar input {
+      padding: 0.8rem 1.2rem;
+      width: 90%;
+      max-width: 400px;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+      font-size: 1rem;
+    }
+
+    .products-container {
       display: flex;
       flex-wrap: wrap;
       justify-content: center;
-      gap: 1rem;
-      margin-bottom: 2rem;
+      gap: 2rem;
+      padding: 2rem;
     }
 
-    .images img {
-      max-width: 300px;
-      border-radius: 6px;
-      box-shadow: 0 0 10px var(--card-shadow);
-    }
-
-    .description {
+    .product-card {
+      background: var(--card-bg);
+      border-radius: 12px;
+      box-shadow: 0 4px 16px var(--card-shadow);
+      padding: 1.5rem;
+      width: 300px;
       text-align: center;
-      padding: 1rem;
     }
 
-    .description h2 {
-      font-size: 1.5rem;
+    .product-card img {
+      max-width: 100%;
+      border-radius: 10px;
       margin-bottom: 1rem;
+    }
+
+    .product-card h2 {
+      font-size: 1.2rem;
       color: var(--title-color);
+      margin: 0.5rem 0;
     }
 
-    .description p {
-      font-size: 1rem;
+    .product-card .price {
+      font-size: 1.1rem;
+      font-weight: bold;
+      color: var(--price-color);
+      margin-bottom: 0.5rem;
+    }
+
+    .product-card p.description {
+      font-size: 0.95rem;
       color: var(--text-color);
-      max-width: 600px;
-      margin: 0 auto;
-      line-height: 1.6;
+      margin-bottom: 1rem;
     }
 
-    .buy {
-      text-align: center;
-      margin-top: 2rem;
+    .buy-button {
+      margin-top: 1rem;
     }
 
     footer {
       text-align: center;
-      padding: 2rem 0;
+      padding: 2rem 1rem;
       font-size: 0.85rem;
       color: var(--text-color);
-    }
-
-    @media (max-width: 600px) {
-      .images {
-        flex-direction: column;
-        align-items: center;
-      }
     }
   </style>
 </head>
 <body>
 
-  <div class="announcement">
-    🎉 3 € de remise avec le code <strong>FIRST25</strong> sur votre première commande !
-  </div>
+<div class="announcement">
+  🎉 3 € de remise avec le code <strong>FIRST25</strong> sur votre première commande !
+</div>
 
-  <header>
-    <img src="logo.png" alt="Logo ErazShop" class="logo">
-    <h1>ErazShop</h1>
-  </header>
+<header>
+  <img src="logo.png" alt="Logo ErazShop" class="logo">
+  <h1>ErazShop</h1>
+</header>
 
-  <!-- Produit 1 : Gourde -->
-  <div class="container">
-    <div class="images">
-      <img src="images/gourde.jpeg" alt="Gourde AirUp">
-    </div>
-    <div class="description">
-      <h2>Gourde à rétro olfaction de type « AirUp »</h2>
-      <p>
-        Bouteille d’eau portable en plastique transparent, livrée avec une capsule de saveur aléatoire.
-        Grâce à un système de rétro-olfaction, elle permet de percevoir des arômes sans ajout de sucre ni de calorie.
-        Équipée d’une paille étanche, elle est idéale pour les activités de plein air.
-      </p>
-    </div>
-    <div class="buy">
+<div class="search-bar">
+  <input type="text" id="searchInput" placeholder="Rechercher un produit...">
+</div>
+
+<div class="products-container" id="products">
+
+  <div class="product-card" data-name="gourde airup">
+    <img src="images/gourde.jpeg" alt="Gourde AirUp">
+    <h2>Gourde à rétro olfaction de type « AirUp »</h2>
+    <p class="price">19,90 €</p>
+    <p class="description">Bouteille d’eau portable avec capsule de saveur aléatoire. Sans sucre, idéale en extérieur.</p>
+    <div class="buy-button">
       <script async src="https://js.stripe.com/v3/buy-button.js"></script>
-      <stripe-buy-button
-        buy-button-id="buy_btn_1Rc4TZCOWsHWoBEG4Qt0KaJB"
+      <stripe-buy-button buy-button-id="buy_btn_1Rc4TZCOWsHWoBEG4Qt0KaJB"
         publishable-key="pk_live_51Rb21ICOWsHWoBEGmAY8BEDjuDe7KjsHoTY4hzhve9aiZd0tUaQoaIEG3aoGHHnwjtc8VrEBDJrIZReI0CTVLYqQ00fikEjr67">
       </stripe-buy-button>
     </div>
   </div>
 
-  <!-- Produit 2 : Baskets -->
-  <div class="container">
-    <div class="images">
-      <img src="images/basket.jpg" alt="Baskets REACTIVE">
-    </div>
-    <div class="description">
-      <h2>Baskets de sport REACTIVE™ – Confort dynamique et style dégradé</h2>
-      <p>
-        Baskets de sport REACTIVE™ au design dégradé orange et vert. Confort maximal grâce à une semelle amortissante
-        et une tige en maille respirante. Idéales pour le sport, la marche ou un usage quotidien. Style moderne et
-        performance réunis.
-      </p>
-    </div>
-    <div class="buy">
-      <stripe-buy-button
-        buy-button-id="buy_btn_1Rc5XsCOWsHWoBEG2nv9HMNE"
+  <div class="product-card" data-name="baskets reactive">
+    <img src="images/basket.jpg" alt="Baskets REACTIVE">
+    <h2>Baskets de sport REACTIVE™</h2>
+    <p class="price">39,90 €</p>
+    <p class="description">Design dégradé, semelle amortissante et maille respirante. Confort moderne au quotidien.</p>
+    <div class="buy-button">
+      <stripe-buy-button buy-button-id="buy_btn_1Rc5XsCOWsHWoBEG2nv9HMNE"
         publishable-key="pk_live_51Rb21ICOWsHWoBEGmAY8BEDjuDe7KjsHoTY4hzhve9aiZd0tUaQoaIEG3aoGHHnwjtc8VrEBDJrIZReI0CTVLYqQ00fikEjr67">
       </stripe-buy-button>
     </div>
   </div>
 
-  <!-- Produit 3 : Casque -->
-  <div class="container">
-    <div class="images">
-      <img src="images/casque.jpeg" alt="Casque Bluetooth P47">
-    </div>
-    <div class="description">
-      <h2>Casque Bluetooth P47 Sans Fil</h2>
-      <p>
-        Profitez d’un son clair et sans fil avec le casque Bluetooth P47. Doté de la technologie 5.0+EDR,
-        il offre une écoute fluide, des boutons intégrés pour la gestion de la musique et un design
-        pliable et élégant. Idéal pour un usage quotidien.
-      </p>
-    </div>
-    <div class="buy">
-      <stripe-buy-button
-        buy-button-id="buy_btn_1Rc8nOCOWsHWoBEGmQVZnG10"
+  <div class="product-card" data-name="casque bluetooth p47">
+    <img src="images/casque.jpeg" alt="Casque Bluetooth P47">
+    <h2>Casque Bluetooth P47 Sans Fil</h2>
+    <p class="price">14,90 €</p>
+    <p class="description">Son clair, Bluetooth 5.0, design pliable, boutons intégrés. Léger et pratique.</p>
+    <div class="buy-button">
+      <stripe-buy-button buy-button-id="buy_btn_1Rc8nOCOWsHWoBEGmQVZnG10"
         publishable-key="pk_live_51Rb21ICOWsHWoBEGmAY8BEDjuDe7KjsHoTY4hzhve9aiZd0tUaQoaIEG3aoGHHnwjtc8VrEBDJrIZReI0CTVLYqQ00fikEjr67">
       </stripe-buy-button>
     </div>
   </div>
 
-  <!-- Produit 4 : Humidificateur -->
-  <div class="container">
-    <div class="images">
-      <img src="images/humidificateur.jpeg" alt="Humidificateur d'air">
-    </div>
-    <div class="description">
-      <h2>Humidificateur d'air portable avec éclairage LED multicolore</h2>
-      <p>
-        Profitez d’un air plus sain avec l’Humidilight Zen, un humidificateur compact au design élégant,
-        équipé d’un éclairage LED multicolore apaisant. Parfait pour la maison, le bureau ou la chambre,
-        il hydrate l’air tout en créant une ambiance relaxante. Silencieux, facile à utiliser et idéal
-        pour améliorer le confort au quotidien.
-      </p>
-    </div>
-    <div class="buy">
-      <stripe-buy-button
-        buy-button-id="buy_btn_1RcUVBCOWsHWoBEGCNEdp9Ah"
+  <div class="product-card" data-name="humidificateur led zen">
+    <img src="images/humidificateur.jpeg" alt="Humidificateur Zen">
+    <h2>Humidificateur d'air LED multicolore</h2>
+    <p class="price">24,90 €</p>
+    <p class="description">Hydrate l’air avec lumière apaisante. Parfait pour maison, bureau ou chambre.</p>
+    <div class="buy-button">
+      <stripe-buy-button buy-button-id="buy_btn_1RcUVBCOWsHWoBEGCNEdp9Ah"
         publishable-key="pk_live_51Rb21ICOWsHWoBEGmAY8BEDjuDe7KjsHoTY4hzhve9aiZd0tUaQoaIEG3aoGHHnwjtc8VrEBDJrIZReI0CTVLYqQ00fikEjr67">
       </stripe-buy-button>
     </div>
   </div>
 
-  <footer>
-    &copy; 2025 – ErazShop – Tous droits réservés
-  </footer>
+</div>
+
+<footer>
+  &copy; 2025 – ErazShop – Tous droits réservés
+</footer>
+
+<script>
+  const input = document.getElementById('searchInput');
+  input.addEventListener('input', function () {
+    const query = this.value.toLowerCase();
+    document.querySelectorAll('.product-card').forEach(card => {
+      const name = card.getAttribute('data-name');
+      card.style.display = name.includes(query) ? 'block' : 'none';
+    });
+  });
+</script>
 
 </body>
 </html>
