@@ -96,7 +96,14 @@
       text-align: center;
       font-size: 0.9rem;
       opacity: 0.85;
-      padding: 0 1rem 1rem;
+      padding: 0 1rem 0.2rem;
+    }
+
+    .sales-note {
+      text-align: center;
+      font-size: 0.9rem;
+      opacity: 0.85;
+      padding: 0 1rem 1.2rem;
     }
 
     .products-container {
@@ -104,10 +111,11 @@
       grid-template-columns: repeat(auto-fit, minmax(260px, 320px));
       justify-content: center;
       gap: 1.6rem;
-      padding: 1.5rem 1.2rem 2rem;
+      padding: 0.8rem 1.2rem 2rem;
     }
 
     .product-card {
+      position: relative;
       background: var(--card-bg);
       border-radius: 14px;
       box-shadow: 0 6px 20px var(--card-shadow);
@@ -137,17 +145,31 @@
       line-height: 1.25;
     }
 
-    .product-card .price {
-      font-size: 1.1rem;
+    /* PRIX (soldé + ancien) */
+    .price {
+      display: flex;
+      justify-content: center;
+      align-items: baseline;
+      gap: 8px;
+      margin: 0.4rem 0 0.7rem;
       font-weight: 700;
+    }
+
+    .price .current {
+      font-size: 1.1rem;
       color: var(--price-color);
-      margin-bottom: 0.5rem;
+    }
+
+    .price .old-price {
+      font-size: 0.9rem;
+      opacity: 0.7;
+      text-decoration: line-through;
     }
 
     .product-card p.description {
       font-size: 0.95rem;
       color: var(--text-color);
-      margin: 0.5rem 0 0.9rem;
+      margin: 0.3rem 0 0.9rem;
       opacity: 0.95;
     }
 
@@ -155,6 +177,20 @@
       margin-top: 0.3rem;
       display: flex;
       justify-content: center;
+    }
+
+    /* BADGE SOLDES */
+    .badge-sale {
+      position: absolute;
+      top: 12px;
+      left: 12px;
+      background: var(--accent);
+      color: #fff;
+      font-weight: 700;
+      font-size: 0.8rem;
+      padding: 6px 10px;
+      border-radius: 999px;
+      z-index: 2;
     }
 
     .empty {
@@ -173,10 +209,11 @@
     }
   </style>
 </head>
+
 <body>
 
 <div class="announcement">
-  🎉 3 € de remise avec le code <strong>FIRST25</strong> sur votre première commande !
+  🔥 SOLDES : -25% minimum sur tout le site — prix déjà réduits !
 </div>
 
 <header>
@@ -187,15 +224,25 @@
 <div class="search-bar">
   <input type="text" id="searchInput" placeholder="Rechercher un produit... (ex: casque, sport, gourde)">
 </div>
+
 <div class="hint" id="countHint"></div>
+<div class="sales-note">💡 Prix affichés = prix soldés (ancien prix barré)</div>
 
 <div class="products-container" id="products">
 
+  <!-- Gourde -->
   <div class="product-card" data-name="gourde airup retro olfaction" data-price="39.99">
+    <div class="badge-sale">-25 % SOLDES</div>
     <img src="images/gourde.jpeg" alt="Gourde AirUp">
     <h2>Gourde à rétro olfaction de type « AirUp »</h2>
-    <p class="price">39,99 €</p>
+
+    <div class="price">
+      <span class="old-price">53,32 €</span>
+      <span class="current">39,99 €</span>
+    </div>
+
     <p class="description">Bouteille d’eau portable avec capsule de saveur aléatoire. Sans sucre, idéale en extérieur.</p>
+
     <div class="buy-button">
       <stripe-buy-button
         buy-button-id="buy_btn_1Rc4TZCOWsHWoBEG4Qt0KaJB"
@@ -204,11 +251,19 @@
     </div>
   </div>
 
+  <!-- Baskets -->
   <div class="product-card" data-name="baskets reactive sport" data-price="24.90">
+    <div class="badge-sale">-25 % SOLDES</div>
     <img src="images/basket.jpg" alt="Baskets REACTIVE">
     <h2>Baskets de sport REACTIVE™</h2>
-    <p class="price">24,90 €</p>
+
+    <div class="price">
+      <span class="old-price">33,20 €</span>
+      <span class="current">24,90 €</span>
+    </div>
+
     <p class="description">Design dégradé, semelle amortissante et maille respirante. Confort moderne au quotidien.</p>
+
     <div class="buy-button">
       <stripe-buy-button
         buy-button-id="buy_btn_1Rc5XsCOWsHWoBEG2nv9HMNE"
@@ -217,11 +272,19 @@
     </div>
   </div>
 
+  <!-- Casque -->
   <div class="product-card" data-name="casque bluetooth p47 sans fil" data-price="19.99">
+    <div class="badge-sale">-25 % SOLDES</div>
     <img src="images/casque.jpeg" alt="Casque Bluetooth P47">
     <h2>Casque Bluetooth P47 Sans Fil</h2>
-    <p class="price">19,99 €</p>
+
+    <div class="price">
+      <span class="old-price">26,65 €</span>
+      <span class="current">19,99 €</span>
+    </div>
+
     <p class="description">Son clair, Bluetooth 5.0, design pliable, boutons intégrés. Léger et pratique.</p>
+
     <div class="buy-button">
       <stripe-buy-button
         buy-button-id="buy_btn_1Rc8nOCOWsHWoBEGmQVZnG10"
@@ -230,11 +293,19 @@
     </div>
   </div>
 
+  <!-- Humidificateur -->
   <div class="product-card" data-name="humidificateur led multicolore zen" data-price="29.99">
+    <div class="badge-sale">-25 % SOLDES</div>
     <img src="images/humidificateur.jpeg" alt="Humidificateur Zen">
     <h2>Humidificateur d'air LED multicolore</h2>
-    <p class="price">29,99 €</p>
+
+    <div class="price">
+      <span class="old-price">39,99 €</span>
+      <span class="current">29,99 €</span>
+    </div>
+
     <p class="description">Hydrate l’air avec lumière apaisante. Parfait pour maison, bureau ou chambre.</p>
+
     <div class="buy-button">
       <stripe-buy-button
         buy-button-id="buy_btn_1RcUVBCOWsHWoBEGCNEdp9Ah"
@@ -277,8 +348,8 @@
       const name = normalizeText(card.getAttribute('data-name'));
       const title = normalizeText(card.querySelector('h2')?.textContent);
       const desc  = normalizeText(card.querySelector('.description')?.textContent);
-
       const haystack = `${name} ${title} ${desc}`;
+
       const match = q === "" || haystack.includes(q);
 
       card.style.display = match ? "" : "none";
