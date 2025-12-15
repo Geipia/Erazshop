@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="fr">
 <head>
   <meta charset="UTF-8" />
@@ -16,6 +16,7 @@
       --title-color: #111;
       --accent: #ff6a00;
       --price-color: #28a745;
+      --border: rgba(0,0,0,0.10);
     }
 
     @media (prefers-color-scheme: dark) {
@@ -27,8 +28,11 @@
         --title-color: #fff;
         --accent: #ffa447;
         --price-color: #50fa7b;
+        --border: rgba(255,255,255,0.12);
       }
     }
+
+    * { box-sizing: border-box; }
 
     body {
       margin: 0;
@@ -51,6 +55,7 @@
       padding: 2rem 1rem 1rem;
       text-align: center;
       box-shadow: 0 1px 6px var(--card-shadow);
+      border-bottom: 1px solid var(--border);
     }
 
     header img.logo {
@@ -66,50 +71,75 @@
 
     .search-bar {
       text-align: center;
-      padding: 1rem;
+      padding: 1rem 1rem 0.5rem;
     }
 
     .search-bar input {
-      padding: 0.8rem 1.2rem;
+      padding: 0.85rem 1.1rem;
       width: 90%;
-      max-width: 400px;
-      border-radius: 8px;
-      border: 1px solid #ccc;
+      max-width: 460px;
+      border-radius: 10px;
+      border: 1px solid var(--border);
       font-size: 1rem;
+      background: var(--card-bg);
+      color: var(--text-color);
+      outline: none;
+      box-shadow: 0 2px 10px var(--card-shadow);
+    }
+
+    .search-bar input:focus {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 4px rgba(255, 106, 0, 0.20);
+    }
+
+    .hint {
+      text-align: center;
+      font-size: 0.9rem;
+      opacity: 0.85;
+      padding: 0 1rem 1rem;
     }
 
     .products-container {
-      display: flex;
-      flex-wrap: wrap;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 320px));
       justify-content: center;
-      gap: 2rem;
-      padding: 2rem;
+      gap: 1.6rem;
+      padding: 1.5rem 1.2rem 2rem;
     }
 
     .product-card {
       background: var(--card-bg);
-      border-radius: 12px;
-      box-shadow: 0 4px 16px var(--card-shadow);
-      padding: 1.5rem;
-      width: 300px;
+      border-radius: 14px;
+      box-shadow: 0 6px 20px var(--card-shadow);
+      padding: 1.2rem;
       text-align: center;
+      border: 1px solid var(--border);
+      transition: transform 0.15s ease, box-shadow 0.15s ease;
+    }
+
+    .product-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 30px var(--card-shadow);
     }
 
     .product-card img {
-      max-width: 100%;
-      border-radius: 10px;
-      margin-bottom: 1rem;
+      width: 100%;
+      height: 180px;
+      object-fit: cover;
+      border-radius: 12px;
+      margin-bottom: 0.9rem;
     }
 
     .product-card h2 {
-      font-size: 1.2rem;
+      font-size: 1.08rem;
       color: var(--title-color);
-      margin: 0.5rem 0;
+      margin: 0.35rem 0 0.25rem;
+      line-height: 1.25;
     }
 
     .product-card .price {
       font-size: 1.1rem;
-      font-weight: bold;
+      font-weight: 700;
       color: var(--price-color);
       margin-bottom: 0.5rem;
     }
@@ -117,11 +147,21 @@
     .product-card p.description {
       font-size: 0.95rem;
       color: var(--text-color);
-      margin-bottom: 1rem;
+      margin: 0.5rem 0 0.9rem;
+      opacity: 0.95;
     }
 
     .buy-button {
-      margin-top: 1rem;
+      margin-top: 0.3rem;
+      display: flex;
+      justify-content: center;
+    }
+
+    .empty {
+      text-align: center;
+      padding: 1.2rem 1rem 2rem;
+      opacity: 0.85;
+      display: none;
     }
 
     footer {
@@ -129,13 +169,14 @@
       padding: 2rem 1rem;
       font-size: 0.85rem;
       color: var(--text-color);
+      opacity: 0.9;
     }
   </style>
 </head>
 <body>
 
 <div class="announcement">
-  🎉 3 € de remise avec le code <strong>FIRST25</strong> sur votre première commande !
+  🎉 3 € de remise avec le code <strong>FIRST25</strong> sur votre première commande !
 </div>
 
 <header>
@@ -144,75 +185,114 @@
 </header>
 
 <div class="search-bar">
-  <input type="text" id="searchInput" placeholder="Rechercher un produit...">
+  <input type="text" id="searchInput" placeholder="Rechercher un produit... (ex: casque, sport, gourde)">
 </div>
+<div class="hint" id="countHint"></div>
 
 <div class="products-container" id="products">
 
-  <div class="product-card" data-name="gourde airup">
+  <div class="product-card" data-name="gourde airup retro olfaction" data-price="39.99">
     <img src="images/gourde.jpeg" alt="Gourde AirUp">
     <h2>Gourde à rétro olfaction de type « AirUp »</h2>
     <p class="price">39,99 €</p>
     <p class="description">Bouteille d’eau portable avec capsule de saveur aléatoire. Sans sucre, idéale en extérieur.</p>
     <div class="buy-button">
-      <script async src="https://js.stripe.com/v3/buy-button.js"></script>
-      <stripe-buy-button buy-button-id="buy_btn_1Rc4TZCOWsHWoBEG4Qt0KaJB"
+      <stripe-buy-button
+        buy-button-id="buy_btn_1Rc4TZCOWsHWoBEG4Qt0KaJB"
         publishable-key="pk_live_51Rb21ICOWsHWoBEGmAY8BEDjuDe7KjsHoTY4hzhve9aiZd0tUaQoaIEG3aoGHHnwjtc8VrEBDJrIZReI0CTVLYqQ00fikEjr67">
       </stripe-buy-button>
     </div>
   </div>
 
-  <div class="product-card" data-name="baskets reactive">
+  <div class="product-card" data-name="baskets reactive sport" data-price="24.90">
     <img src="images/basket.jpg" alt="Baskets REACTIVE">
     <h2>Baskets de sport REACTIVE™</h2>
     <p class="price">24,90 €</p>
     <p class="description">Design dégradé, semelle amortissante et maille respirante. Confort moderne au quotidien.</p>
     <div class="buy-button">
-      <stripe-buy-button buy-button-id="buy_btn_1Rc5XsCOWsHWoBEG2nv9HMNE"
+      <stripe-buy-button
+        buy-button-id="buy_btn_1Rc5XsCOWsHWoBEG2nv9HMNE"
         publishable-key="pk_live_51Rb21ICOWsHWoBEGmAY8BEDjuDe7KjsHoTY4hzhve9aiZd0tUaQoaIEG3aoGHHnwjtc8VrEBDJrIZReI0CTVLYqQ00fikEjr67">
       </stripe-buy-button>
     </div>
   </div>
 
-  <div class="product-card" data-name="casque bluetooth p47">
+  <div class="product-card" data-name="casque bluetooth p47 sans fil" data-price="19.99">
     <img src="images/casque.jpeg" alt="Casque Bluetooth P47">
     <h2>Casque Bluetooth P47 Sans Fil</h2>
     <p class="price">19,99 €</p>
     <p class="description">Son clair, Bluetooth 5.0, design pliable, boutons intégrés. Léger et pratique.</p>
     <div class="buy-button">
-      <stripe-buy-button buy-button-id="buy_btn_1Rc8nOCOWsHWoBEGmQVZnG10"
+      <stripe-buy-button
+        buy-button-id="buy_btn_1Rc8nOCOWsHWoBEGmQVZnG10"
         publishable-key="pk_live_51Rb21ICOWsHWoBEGmAY8BEDjuDe7KjsHoTY4hzhve9aiZd0tUaQoaIEG3aoGHHnwjtc8VrEBDJrIZReI0CTVLYqQ00fikEjr67">
       </stripe-buy-button>
     </div>
   </div>
 
-  <div class="product-card" data-name="humidificateur led zen">
+  <div class="product-card" data-name="humidificateur led multicolore zen" data-price="29.99">
     <img src="images/humidificateur.jpeg" alt="Humidificateur Zen">
     <h2>Humidificateur d'air LED multicolore</h2>
     <p class="price">29,99 €</p>
     <p class="description">Hydrate l’air avec lumière apaisante. Parfait pour maison, bureau ou chambre.</p>
     <div class="buy-button">
-      <stripe-buy-button buy-button-id="buy_btn_1RcUVBCOWsHWoBEGCNEdp9Ah"
+      <stripe-buy-button
+        buy-button-id="buy_btn_1RcUVBCOWsHWoBEGCNEdp9Ah"
         publishable-key="pk_live_51Rb21ICOWsHWoBEGmAY8BEDjuDe7KjsHoTY4hzhve9aiZd0tUaQoaIEG3aoGHHnwjtc8VrEBDJrIZReI0CTVLYqQ00fikEjr67">
       </stripe-buy-button>
     </div>
   </div>
 
+</div>
+
+<div class="empty" id="emptyState">
+  Aucun produit ne correspond à ta recherche.
 </div>
 
 <footer>
   &copy; 2025 – ErazShop – Tous droits réservés
 </footer>
 
+<!-- Stripe chargé UNE seule fois -->
+<script async src="https://js.stripe.com/v3/buy-button.js"></script>
+
 <script>
   const input = document.getElementById('searchInput');
-  input.addEventListener('input', function () {
-    const query = this.value.toLowerCase();
-    document.querySelectorAll('.product-card').forEach(card => {
-      const name = card.getAttribute('data-name');
-      card.style.display = name.includes(query) ? 'block' : 'none';
+  const cards = Array.from(document.querySelectorAll('.product-card'));
+  const emptyState = document.getElementById('emptyState');
+  const countHint = document.getElementById('countHint');
+
+  function normalizeText(str) {
+    return (str || "")
+      .toLowerCase()
+      .normalize("NFD")
+      .replace(/[\u0300-\u036f]/g, ""); // enlève accents
+  }
+
+  function updateList() {
+    const q = normalizeText(input.value.trim());
+    let visibleCount = 0;
+
+    cards.forEach(card => {
+      const name = normalizeText(card.getAttribute('data-name'));
+      const title = normalizeText(card.querySelector('h2')?.textContent);
+      const desc  = normalizeText(card.querySelector('.description')?.textContent);
+
+      const haystack = `${name} ${title} ${desc}`;
+      const match = q === "" || haystack.includes(q);
+
+      card.style.display = match ? "" : "none";
+      if (match) visibleCount++;
     });
-  });
+
+    emptyState.style.display = visibleCount === 0 ? "block" : "none";
+    countHint.textContent = q
+      ? `${visibleCount} produit(s) trouvé(s)`
+      : `${cards.length} produit(s) disponible(s)`;
+  }
+
+  input.addEventListener('input', updateList);
+  updateList();
 </script>
 
 </body>
