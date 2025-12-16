@@ -66,6 +66,14 @@ header h1{
   border-radius:10px;
   border:1px solid var(--border);
   font-size:1rem;
+  background:var(--card);
+  color:var(--text);
+  outline:none;
+}
+
+.search input:focus{
+  border-color:var(--accent);
+  box-shadow:0 0 0 4px rgba(255,106,0,.2);
 }
 
 /* PRODUCTS */
@@ -84,15 +92,16 @@ header h1{
   padding:1rem;
   border:1px solid var(--border);
   position:relative;
+  box-shadow:0 10px 30px rgba(0,0,0,.08);
 }
 
-/* IMAGE : cadre rempli + image entière */
+/* IMAGE : cadre rempli visuellement + image entière */
 .product img{
   width:100%;
   height:220px;
-  object-fit:contain;
-  background:var(--img-bg);
-  padding:12px;
+  object-fit:contain;            /* ✅ image entière */
+  background:var(--img-bg);      /* ✅ “remplit” le cadre */
+  padding:12px;                  /* ✅ respire */
   border-radius:12px;
   margin-bottom:.7rem;
 }
@@ -126,6 +135,7 @@ header h1{
 .product h2{
   font-size:1rem;
   margin:.3rem 0;
+  color:var(--text);
 }
 
 .price{
@@ -133,6 +143,7 @@ header h1{
   gap:8px;
   justify-content:center;
   margin:.4rem 0;
+  align-items:baseline;
 }
 
 .old{
@@ -148,13 +159,15 @@ header h1{
 .desc{
   font-size:.9rem;
   text-align:center;
+  opacity:.95;
 }
 
 /* MOBILE OPTIMISATION */
 @media(max-width:600px){
   header img{height:44px}
+  .products{padding:.8rem; gap:1rem}
+  .product{padding:.95rem}
   .product img{height:240px}
-  .products{padding:.8rem}
 }
 
 /* FOOTER */
@@ -163,6 +176,93 @@ footer{
   padding:2rem 1rem;
   font-size:.8rem;
   opacity:.8;
+}
+
+/* ✅ POPUP SOLDES */
+.popup-overlay{
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,.55);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:18px;
+  z-index:9999;
+}
+
+.popup{
+  width:min(520px, 92vw);
+  background:var(--card);
+  color:var(--text);
+  border:1px solid var(--border);
+  border-radius:18px;
+  box-shadow:0 20px 60px rgba(0,0,0,.35);
+  padding:18px 18px 14px;
+  position:relative;
+  text-align:center;
+}
+
+.popup h3{
+  margin:6px 0 8px;
+  font-size:1.2rem;
+}
+
+.popup p{
+  margin:0 0 12px;
+  opacity:.9;
+  line-height:1.35;
+}
+
+.popup .badge{
+  display:inline-block;
+  background:var(--accent);
+  color:#fff;
+  padding:6px 10px;
+  border-radius:999px;
+  font-weight:700;
+  font-size:.85rem;
+}
+
+.popup .actions{
+  display:flex;
+  gap:10px;
+  justify-content:center;
+  flex-wrap:wrap;
+  margin-top:10px;
+}
+
+.popup button{
+  border:0;
+  padding:10px 14px;
+  border-radius:12px;
+  font-weight:700;
+  cursor:pointer;
+}
+
+.popup .primary{
+  background:var(--accent);
+  color:#fff;
+}
+
+.popup .secondary{
+  background:transparent;
+  color:var(--text);
+  border:1px solid var(--border);
+}
+
+.popup .close{
+  position:absolute;
+  top:10px;
+  right:12px;
+  width:36px;
+  height:36px;
+  border-radius:10px;
+  border:1px solid var(--border);
+  background:transparent;
+  color:var(--text);
+  font-size:18px;
+  line-height:1;
+  cursor:pointer;
 }
 </style>
 </head>
@@ -175,58 +275,90 @@ footer{
 </header>
 
 <div class="search">
-  <input type="text" placeholder="Rechercher un produit…">
+  <input id="searchInput" type="text" placeholder="Rechercher un produit…">
 </div>
 
-<div class="products">
+<div class="products" id="products">
 
   <!-- GOURDE -->
-  <div class="product">
+  <div class="product" data-name="gourde airup retro olfaction best seller">
     <div class="badge-sale">-25%</div>
     <div class="badge-best">⭐ BEST SELLER</div>
-    <img src="images/gourde.jpeg">
+    <img src="images/gourde.jpeg" alt="Gourde AirUp">
     <h2>Gourde AirUp</h2>
     <div class="price">
       <span class="old">53,32 €</span>
       <span class="current">39,99 €</span>
     </div>
     <p class="desc">Gourde sans sucre à rétro-olfaction.</p>
+
+    <!-- Stripe -->
+    <div style="display:flex;justify-content:center;margin-top:.6rem;">
+      <stripe-buy-button
+        buy-button-id="buy_btn_1Rc4TZCOWsHWoBEG4Qt0KaJB"
+        publishable-key="pk_live_51Rb21ICOWsHWoBEGmAY8BEDjuDe7KjsHoTY4hzhve9aiZd0tUaQoaIEG3aoGHHnwjtc8VrEBDJrIZReI0CTVLYqQ00fikEjr67">
+      </stripe-buy-button>
+    </div>
   </div>
 
   <!-- BASKETS -->
-  <div class="product">
+  <div class="product" data-name="baskets reactive sport">
     <div class="badge-sale">-25%</div>
-    <img src="images/basket.jpg">
+    <img src="images/basket.jpg" alt="Baskets REACTIVE">
     <h2>Baskets REACTIVE™</h2>
     <div class="price">
       <span class="old">33,20 €</span>
       <span class="current">24,90 €</span>
     </div>
     <p class="desc">Confort moderne et respirant.</p>
+
+    <!-- Stripe -->
+    <div style="display:flex;justify-content:center;margin-top:.6rem;">
+      <stripe-buy-button
+        buy-button-id="buy_btn_1Rc5XsCOWsHWoBEG2nv9HMNE"
+        publishable-key="pk_live_51Rb21ICOWsHWoBEGmAY8BEDjuDe7KjsHoTY4hzhve9aiZd0tUaQoaIEG3aoGHHnwjtc8VrEBDJrIZReI0CTVLYqQ00fikEjr67">
+      </stripe-buy-button>
+    </div>
   </div>
 
   <!-- CASQUE -->
-  <div class="product">
+  <div class="product" data-name="casque bluetooth p47 sans fil">
     <div class="badge-sale">-25%</div>
-    <img src="images/casque.jpeg">
+    <img src="images/casque.jpeg" alt="Casque Bluetooth P47">
     <h2>Casque Bluetooth P47</h2>
     <div class="price">
       <span class="old">26,65 €</span>
       <span class="current">19,99 €</span>
     </div>
     <p class="desc">Bluetooth 5.0, pliable.</p>
+
+    <!-- Stripe -->
+    <div style="display:flex;justify-content:center;margin-top:.6rem;">
+      <stripe-buy-button
+        buy-button-id="buy_btn_1Rc8nOCOWsHWoBEGmQVZnG10"
+        publishable-key="pk_live_51Rb21ICOWsHWoBEGmAY8BEDjuDe7KjsHoTY4hzhve9aiZd0tUaQoaIEG3aoGHHnwjtc8VrEBDJrIZReI0CTVLYqQ00fikEjr67">
+      </stripe-buy-button>
+    </div>
   </div>
 
   <!-- HUMIDIFICATEUR -->
-  <div class="product">
+  <div class="product" data-name="humidificateur led multicolore zen">
     <div class="badge-sale">-25%</div>
-    <img src="images/humidificateur.jpeg">
+    <img src="images/humidificateur.jpeg" alt="Humidificateur LED">
     <h2>Humidificateur LED</h2>
     <div class="price">
       <span class="old">39,99 €</span>
       <span class="current">29,99 €</span>
     </div>
     <p class="desc">Lumière apaisante & air sain.</p>
+
+    <!-- Stripe -->
+    <div style="display:flex;justify-content:center;margin-top:.6rem;">
+      <stripe-buy-button
+        buy-button-id="buy_btn_1RcUVBCOWsHWoBEGCNEdp9Ah"
+        publishable-key="pk_live_51Rb21ICOWsHWoBEGmAY8BEDjuDe7KjsHoTY4hzhve9aiZd0tUaQoaIEG3aoGHHnwjtc8VrEBDJrIZReI0CTVLYqQ00fikEjr67">
+      </stripe-buy-button>
+    </div>
   </div>
 
 </div>
@@ -234,6 +366,91 @@ footer{
 <footer>
   © 2025 – ErazShop
 </footer>
+
+<!-- ✅ POPUP -->
+<div class="popup-overlay" id="salePopup" aria-hidden="true" style="display:none;">
+  <div class="popup" role="dialog" aria-modal="true" aria-label="Promotion">
+    <button class="close" id="closePopup" aria-label="Fermer">✕</button>
+
+    <span class="badge">🎄 OFFRE FÊTES</span>
+    <h3>-25% sur tous les produits !</h3>
+    <p>Profite des promotions de fin d’année : <strong>-25% minimum</strong> sur toute la boutique.</p>
+
+    <div class="actions">
+      <button class="primary" id="shopNow">Voir les produits</button>
+      <button class="secondary" id="dismissPopup">Plus tard</button>
+    </div>
+  </div>
+</div>
+
+<!-- Stripe chargé une seule fois -->
+<script async src="https://js.stripe.com/v3/buy-button.js"></script>
+
+<script>
+  // 🔍 Recherche
+  const searchInput = document.getElementById("searchInput");
+  const cards = Array.from(document.querySelectorAll(".product"));
+
+  function normalizeText(str){
+    return (str || "").toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g,"");
+  }
+
+  searchInput.addEventListener("input", () => {
+    const q = normalizeText(searchInput.value.trim());
+    cards.forEach(card => {
+      const name = normalizeText(card.getAttribute("data-name"));
+      card.style.display = (q === "" || name.includes(q)) ? "" : "none";
+    });
+  });
+
+  // ✅ Popup : 1 fois par jour
+  const popupKey = "erazshop_sale_popup_last_seen";
+
+  function showPopup(){
+    const overlay = document.getElementById("salePopup");
+    overlay.style.display = "flex";
+    overlay.setAttribute("aria-hidden","false");
+    document.body.style.overflow = "hidden";
+  }
+
+  function hidePopup(){
+    const overlay = document.getElementById("salePopup");
+    overlay.style.display = "none";
+    overlay.setAttribute("aria-hidden","true");
+    document.body.style.overflow = "";
+  }
+
+  function canShowPopup(){
+    const last = localStorage.getItem(popupKey);
+    if(!last) return true;
+    const lastDate = new Date(parseInt(last,10));
+    const now = new Date();
+    return lastDate.toDateString() !== now.toDateString();
+  }
+
+  window.addEventListener("load", () => {
+    if(canShowPopup()){
+      showPopup();
+      localStorage.setItem(popupKey, Date.now().toString());
+    }
+  });
+
+  document.getElementById("closePopup").addEventListener("click", hidePopup);
+  document.getElementById("dismissPopup").addEventListener("click", hidePopup);
+
+  document.getElementById("salePopup").addEventListener("click", (e) => {
+    if(e.target.id === "salePopup") hidePopup();
+  });
+
+  document.getElementById("shopNow").addEventListener("click", () => {
+    hidePopup();
+    document.getElementById("products").scrollIntoView({behavior:"smooth", block:"start"});
+  });
+
+  window.addEventListener("keydown", (e) => {
+    if(e.key === "Escape") hidePopup();
+  });
+</script>
 
 </body>
 </html>
