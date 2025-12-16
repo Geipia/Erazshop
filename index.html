@@ -12,11 +12,11 @@
       --bg-color: #f4f4f4;
       --text-color: #333;
       --card-bg: #fff;
-      --card-shadow: rgba(0, 0, 0, 0.1);
+      --card-shadow: rgba(0, 0, 0, 0.10);
       --title-color: #111;
       --accent: #ff6a00;
       --price-color: #28a745;
-      --border: rgba(0,0,0,0.1);
+      --border: rgba(0,0,0,0.10);
       --img-bg: rgba(0,0,0,0.04);
     }
 
@@ -25,12 +25,12 @@
         --bg-color: #121212;
         --text-color: #e0e0e0;
         --card-bg: #1e1e1e;
-        --card-shadow: rgba(0, 0, 0, 0.4);
+        --card-shadow: rgba(0, 0, 0, 0.45);
         --title-color: #fff;
         --accent: #ffa447;
         --price-color: #50fa7b;
         --border: rgba(255,255,255,0.12);
-        --img-bg: rgba(255,255,255,0.05);
+        --img-bg: rgba(255,255,255,0.06);
       }
     }
 
@@ -49,6 +49,7 @@
       text-align: center;
       padding: 0.7rem 1rem;
       font-weight: bold;
+      font-size: 1rem;
     }
 
     header {
@@ -72,7 +73,7 @@
 
     .search-bar {
       text-align: center;
-      padding: 1rem;
+      padding: 1rem 1rem 0.5rem;
     }
 
     .search-bar input {
@@ -84,15 +85,29 @@
       font-size: 1rem;
       background: var(--card-bg);
       color: var(--text-color);
+      outline: none;
       box-shadow: 0 2px 10px var(--card-shadow);
     }
+
+    .search-bar input:focus {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 4px rgba(255, 106, 0, 0.20);
+    }
+
+    .hint, .sales-note {
+      text-align: center;
+      font-size: 0.9rem;
+      opacity: 0.85;
+      padding: 0 1rem 0.2rem;
+    }
+    .sales-note { padding-bottom: 1.1rem; }
 
     .products-container {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(260px, 320px));
       justify-content: center;
       gap: 1.6rem;
-      padding: 1rem 1.2rem 2rem;
+      padding: 0.8rem 1.2rem 2rem;
     }
 
     .product-card {
@@ -103,9 +118,15 @@
       padding: 1.2rem;
       text-align: center;
       border: 1px solid var(--border);
+      transition: transform 0.15s ease, box-shadow 0.15s ease;
     }
 
-    /* ✅ IMAGE ENTIÈRE */
+    .product-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 30px var(--card-shadow);
+    }
+
+    /* ✅ image ENTIÈRE (pas coupée) */
     .product-card img {
       width: 100%;
       height: 220px;
@@ -119,30 +140,35 @@
     .product-card h2 {
       font-size: 1.05rem;
       color: var(--title-color);
-      margin: 0.4rem 0;
+      margin: 0.35rem 0 0.25rem;
+      line-height: 1.25;
     }
 
     .price {
       display: flex;
       justify-content: center;
+      align-items: baseline;
       gap: 8px;
-      margin-bottom: 0.5rem;
-    }
-
-    .old-price {
-      text-decoration: line-through;
-      opacity: 0.6;
-      font-size: 0.9rem;
-    }
-
-    .current {
+      margin: 0.4rem 0 0.7rem;
       font-weight: 700;
+    }
+
+    .price .current {
+      font-size: 1.1rem;
       color: var(--price-color);
     }
 
-    .description {
+    .price .old-price {
+      font-size: 0.9rem;
+      opacity: 0.7;
+      text-decoration: line-through;
+    }
+
+    .product-card p.description {
       font-size: 0.95rem;
-      margin-bottom: 0.8rem;
+      color: var(--text-color);
+      margin: 0.3rem 0 0.9rem;
+      opacity: 0.95;
     }
 
     .badge-sale {
@@ -150,92 +176,459 @@
       top: 12px;
       left: 12px;
       background: var(--accent);
-      color: white;
+      color: #fff;
       font-weight: 700;
       font-size: 0.8rem;
       padding: 6px 10px;
       border-radius: 999px;
+      z-index: 2;
+    }
+
+    .add-cart {
+      margin: 0.2rem 0 0.8rem;
+      padding: 10px 12px;
+      border-radius: 10px;
+      border: none;
+      background: var(--accent);
+      color: white;
+      font-weight: 700;
+      cursor: pointer;
+      width: 100%;
+    }
+
+    .add-cart:active { transform: translateY(1px); }
+
+    .buy-button {
+      display: flex;
+      justify-content: center;
+      margin-top: 0.2rem;
+    }
+
+    .empty {
+      text-align: center;
+      padding: 1.2rem 1rem 2rem;
+      opacity: 0.85;
+      display: none;
     }
 
     footer {
       text-align: center;
       padding: 2rem 1rem;
       font-size: 0.85rem;
-      opacity: 0.8;
+      color: var(--text-color);
+      opacity: 0.9;
+    }
+
+    /* =========================
+       PANIER (floating)
+       ========================= */
+    #cart {
+      position: fixed;
+      bottom: 18px;
+      right: 18px;
+      width: 310px;
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      box-shadow: 0 14px 40px var(--card-shadow);
+      padding: 0.9rem;
+      z-index: 999;
+    }
+
+    #cart-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-weight: 800;
+      margin-bottom: 0.6rem;
+      color: var(--title-color);
+    }
+
+    #cart-items {
+      max-height: 170px;
+      overflow-y: auto;
+      margin-bottom: 0.6rem;
+      padding-right: 4px;
+    }
+
+    .cart-item {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 8px;
+      align-items: center;
+      padding: 6px 0;
+      border-bottom: 1px dashed var(--border);
+    }
+
+    .cart-item:last-child { border-bottom: none; }
+
+    .cart-item .name {
+      font-size: 0.92rem;
+      line-height: 1.2;
+    }
+
+    .cart-item .right {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      white-space: nowrap;
+    }
+
+    .cart-item button {
+      background: none;
+      border: none;
+      color: #ff3b30;
+      cursor: pointer;
+      font-size: 1rem;
+      padding: 2px 4px;
+    }
+
+    .cart-line, .cart-total {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 8px;
+      font-size: 0.95rem;
+    }
+
+    .cart-total {
+      border-top: 1px solid var(--border);
+      padding-top: 8px;
+      font-size: 1rem;
+      color: var(--title-color);
+    }
+
+    .cart-note {
+      margin-top: 8px;
+      font-size: 0.82rem;
+      opacity: 0.85;
+      line-height: 1.2;
+    }
+
+    .cart-actions {
+      margin-top: 10px;
+      display: flex;
+      gap: 10px;
+    }
+
+    .cart-actions button {
+      flex: 1;
+      padding: 10px 12px;
+      border-radius: 10px;
+      border: 1px solid var(--border);
+      background: transparent;
+      color: var(--text-color);
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    .cart-actions button.primary {
+      background: var(--accent);
+      color: white;
+      border: none;
+    }
+
+    @media (max-width: 420px) {
+      #cart {
+        width: calc(100% - 24px);
+        right: 12px;
+        left: 12px;
+      }
     }
   </style>
 </head>
 
 <body>
 
-<div class="announcement">
-  🔥 SOLDES –25 % minimum sur tout le site (prix déjà réduits)
-</div>
-
-<header>
-  <img src="logo.png" class="logo" alt="ErazShop">
-  <h1>ErazShop</h1>
-</header>
-
-<div class="search-bar">
-  <input type="text" placeholder="Rechercher un produit…">
-</div>
-
-<div class="products-container">
-
-  <!-- Gourde -->
-  <div class="product-card">
-    <div class="badge-sale">-25 %</div>
-    <img src="images/gourde.jpeg">
-    <h2>Gourde à rétro olfaction AirUp</h2>
-    <div class="price">
-      <span class="old-price">53,32 €</span>
-      <span class="current">39,99 €</span>
-    </div>
-    <p class="description">Bouteille d’eau sans sucre avec capsule de saveur.</p>
+  <div class="announcement">
+    🔥 SOLDES : -25% minimum sur tout le site — prix déjà réduits !
   </div>
 
-  <!-- Baskets -->
-  <div class="product-card">
-    <div class="badge-sale">-25 %</div>
-    <img src="images/basket.jpg">
-    <h2>Baskets de sport REACTIVE™</h2>
-    <div class="price">
-      <span class="old-price">33,20 €</span>
-      <span class="current">24,90 €</span>
-    </div>
-    <p class="description">Confort moderne, maille respirante.</p>
+  <header>
+    <img src="logo.png" alt="Logo ErazShop" class="logo">
+    <h1>ErazShop</h1>
+  </header>
+
+  <div class="search-bar">
+    <input type="text" id="searchInput" placeholder="Rechercher un produit... (ex: casque, sport, gourde)">
   </div>
 
-  <!-- Casque -->
-  <div class="product-card">
-    <div class="badge-sale">-25 %</div>
-    <img src="images/casque.jpeg">
-    <h2>Casque Bluetooth P47</h2>
-    <div class="price">
-      <span class="old-price">26,65 €</span>
-      <span class="current">19,99 €</span>
+  <div class="hint" id="countHint"></div>
+  <div class="sales-note">💡 Prix affichés = prix soldés (ancien prix barré)</div>
+
+  <div class="products-container" id="products">
+
+    <!-- Gourde -->
+    <div class="product-card" data-name="gourde airup retro olfaction bouteille capsule" data-price="39.99">
+      <div class="badge-sale">-25 % SOLDES</div>
+      <img src="images/gourde.jpeg" alt="Gourde AirUp">
+      <h2>Gourde à rétro olfaction de type « AirUp »</h2>
+
+      <div class="price">
+        <span class="old-price">53,32 €</span>
+        <span class="current">39,99 €</span>
+      </div>
+
+      <p class="description">Bouteille d’eau portable avec capsule de saveur aléatoire. Sans sucre, idéale en extérieur.</p>
+
+      <button class="add-cart" onclick="addToCart('Gourde AirUp', 39.99)">➕ Ajouter au panier</button>
+
+      <div class="buy-button">
+        <stripe-buy-button
+          buy-button-id="buy_btn_1Rc4TZCOWsHWoBEG4Qt0KaJB"
+          publishable-key="pk_live_51Rb21ICOWsHWoBEGmAY8BEDjuDe7KjsHoTY4hzhve9aiZd0tUaQoaIEG3aoGHHnwjtc8VrEBDJrIZReI0CTVLYqQ00fikEjr67">
+        </stripe-buy-button>
+      </div>
     </div>
-    <p class="description">Bluetooth 5.0, pliable, léger.</p>
+
+    <!-- Baskets -->
+    <div class="product-card" data-name="baskets reactive chaussures sport respirante" data-price="24.90">
+      <div class="badge-sale">-25 % SOLDES</div>
+      <img src="images/basket.jpg" alt="Baskets REACTIVE">
+      <h2>Baskets de sport REACTIVE™</h2>
+
+      <div class="price">
+        <span class="old-price">33,20 €</span>
+        <span class="current">24,90 €</span>
+      </div>
+
+      <p class="description">Design dégradé, semelle amortissante et maille respirante. Confort moderne au quotidien.</p>
+
+      <button class="add-cart" onclick="addToCart('Baskets REACTIVE', 24.90)">➕ Ajouter au panier</button>
+
+      <div class="buy-button">
+        <stripe-buy-button
+          buy-button-id="buy_btn_1Rc5XsCOWsHWoBEG2nv9HMNE"
+          publishable-key="pk_live_51Rb21ICOWsHWoBEGmAY8BEDjuDe7KjsHoTY4hzhve9aiZd0tUaQoaIEG3aoGHHnwjtc8VrEBDJrIZReI0CTVLYqQ00fikEjr67">
+        </stripe-buy-button>
+      </div>
+    </div>
+
+    <!-- Casque -->
+    <div class="product-card" data-name="casque bluetooth p47 sans fil audio musique" data-price="19.99">
+      <div class="badge-sale">-25 % SOLDES</div>
+      <img src="images/casque.jpeg" alt="Casque Bluetooth P47">
+      <h2>Casque Bluetooth P47 Sans Fil</h2>
+
+      <div class="price">
+        <span class="old-price">26,65 €</span>
+        <span class="current">19,99 €</span>
+      </div>
+
+      <p class="description">Son clair, Bluetooth 5.0, design pliable, boutons intégrés. Léger et pratique.</p>
+
+      <button class="add-cart" onclick="addToCart('Casque Bluetooth P47', 19.99)">➕ Ajouter au panier</button>
+
+      <div class="buy-button">
+        <stripe-buy-button
+          buy-button-id="buy_btn_1Rc8nOCOWsHWoBEGmQVZnG10"
+          publishable-key="pk_live_51Rb21ICOWsHWoBEGmAY8BEDjuDe7KjsHoTY4hzhve9aiZd0tUaQoaIEG3aoGHHnwjtc8VrEBDJrIZReI0CTVLYqQ00fikEjr67">
+        </stripe-buy-button>
+      </div>
+    </div>
+
+    <!-- Humidificateur -->
+    <div class="product-card" data-name="humidificateur led zen multicolore maison chambre bureau" data-price="29.99">
+      <div class="badge-sale">-25 % SOLDES</div>
+      <img src="images/humidificateur.jpeg" alt="Humidificateur Zen">
+      <h2>Humidificateur d'air LED multicolore</h2>
+
+      <div class="price">
+        <span class="old-price">39,99 €</span>
+        <span class="current">29,99 €</span>
+      </div>
+
+      <p class="description">Hydrate l’air avec lumière apaisante. Parfait pour maison, bureau ou chambre.</p>
+
+      <button class="add-cart" onclick="addToCart('Humidificateur LED', 29.99)">➕ Ajouter au panier</button>
+
+      <div class="buy-button">
+        <stripe-buy-button
+          buy-button-id="buy_btn_1RcUVBCOWsHWoBEGCNEdp9Ah"
+          publishable-key="pk_live_51Rb21ICOWsHWoBEGmAY8BEDjuDe7KjsHoTY4hzhve9aiZd0tUaQoaIEG3aoGHHnwjtc8VrEBDJrIZReI0CTVLYqQ00fikEjr67">
+        </stripe-buy-button>
+      </div>
+    </div>
+
   </div>
 
-  <!-- Humidificateur -->
-  <div class="product-card">
-    <div class="badge-sale">-25 %</div>
-    <img src="images/humidificateur.jpeg">
-    <h2>Humidificateur LED multicolore</h2>
-    <div class="price">
-      <span class="old-price">39,99 €</span>
-      <span class="current">29,99 €</span>
-    </div>
-    <p class="description">Air hydraté + lumière apaisante.</p>
+  <div class="empty" id="emptyState">
+    Aucun produit ne correspond à ta recherche.
   </div>
 
-</div>
+  <footer>
+    &copy; 2025 – ErazShop – Tous droits réservés
+  </footer>
 
-<footer>
-  © 2025 – ErazShop
-</footer>
+  <!-- PANIER -->
+  <div id="cart">
+    <div id="cart-header">
+      <span>🛒 Panier (<span id="cart-count">0</span>)</span>
+      <span id="free-ship-badge" style="font-size:0.85rem; font-weight:700; opacity:0.85;"></span>
+    </div>
+
+    <div id="cart-items"></div>
+
+    <div class="cart-line">
+      <span>Sous-total</span>
+      <span id="subtotal">0,00 €</span>
+    </div>
+
+    <div class="cart-line">
+      <span>Livraison</span>
+      <span id="shipping">0,00 €</span>
+    </div>
+
+    <div class="cart-total">
+      <strong>Total</strong>
+      <strong id="total">0,00 €</strong>
+    </div>
+
+    <div class="cart-note" id="shipping-note">
+      Livraison : 5 € (gratuite dès 100 €)
+    </div>
+
+    <div class="cart-actions">
+      <button onclick="clearCart()">Vider</button>
+      <button class="primary" onclick="checkoutInfo()">Commander</button>
+    </div>
+  </div>
+
+  <!-- Stripe chargé UNE seule fois -->
+  <script async src="https://js.stripe.com/v3/buy-button.js"></script>
+
+  <script>
+    /* =========================
+       RECHERCHE
+       ========================= */
+    const input = document.getElementById('searchInput');
+    const cards = Array.from(document.querySelectorAll('.product-card'));
+    const emptyState = document.getElementById('emptyState');
+    const countHint = document.getElementById('countHint');
+
+    function normalizeText(str) {
+      return (str || "")
+        .toLowerCase()
+        .normalize("NFD")
+        .replace(/[\u0300-\u036f]/g, "");
+    }
+
+    function updateList() {
+      const q = normalizeText(input.value.trim());
+      let visibleCount = 0;
+
+      cards.forEach(card => {
+        const name = normalizeText(card.getAttribute('data-name'));
+        const title = normalizeText(card.querySelector('h2')?.textContent);
+        const desc  = normalizeText(card.querySelector('.description')?.textContent);
+        const haystack = `${name} ${title} ${desc}`;
+
+        const match = q === "" || haystack.includes(q);
+        card.style.display = match ? "" : "none";
+        if (match) visibleCount++;
+      });
+
+      emptyState.style.display = visibleCount === 0 ? "block" : "none";
+      countHint.textContent = q
+        ? `${visibleCount} produit(s) trouvé(s)`
+        : `${cards.length} produit(s) disponible(s)`;
+    }
+
+    input.addEventListener('input', updateList);
+    updateList();
+
+    /* =========================
+       PANIER + LIVRAISON
+       - Livraison : 5 €
+       - Gratuite dès 100 €
+       ========================= */
+    let cart = [];
+
+    const cartItemsEl = document.getElementById("cart-items");
+    const cartCountEl = document.getElementById("cart-count");
+    const subtotalEl  = document.getElementById("subtotal");
+    const shippingEl  = document.getElementById("shipping");
+    const totalEl     = document.getElementById("total");
+    const freeShipBadge = document.getElementById("free-ship-badge");
+    const shippingNote = document.getElementById("shipping-note");
+
+    function formatEUR(n) {
+      return n.toFixed(2).replace('.', ',') + " €";
+    }
+
+    function addToCart(name, price) {
+      cart.push({ name, price });
+      updateCart();
+    }
+
+    function removeFromCart(index) {
+      cart.splice(index, 1);
+      updateCart();
+    }
+
+    function clearCart() {
+      cart = [];
+      updateCart();
+    }
+
+    function calcShipping(subtotal) {
+      if (cart.length === 0) return 0;       // pas de panier => pas de livraison
+      if (subtotal >= 100) return 0;         // gratuite dès 100 €
+      return 5;                              // sinon 5 €
+    }
+
+    function updateCart() {
+      cartItemsEl.innerHTML = "";
+
+      let subtotal = 0;
+      cart.forEach((item, index) => {
+        subtotal += item.price;
+
+        const row = document.createElement("div");
+        row.className = "cart-item";
+        row.innerHTML = `
+          <div class="name">${item.name}</div>
+          <div class="right">
+            <span>${formatEUR(item.price).replace(',00', '')}</span>
+            <button aria-label="Supprimer" title="Supprimer" onclick="removeFromCart(${index})">✕</button>
+          </div>
+        `;
+        cartItemsEl.appendChild(row);
+      });
+
+      const shipping = calcShipping(subtotal);
+      const total = subtotal + shipping;
+
+      cartCountEl.textContent = cart.length;
+      subtotalEl.textContent  = formatEUR(subtotal);
+      shippingEl.textContent  = (shipping === 0 && cart.length > 0 && subtotal >= 100)
+        ? "Gratuite 🎉"
+        : formatEUR(shipping);
+
+      totalEl.textContent = formatEUR(total);
+
+      if (cart.length === 0) {
+        freeShipBadge.textContent = "";
+        shippingNote.textContent = "Ajoute des produits pour calculer la livraison.";
+      } else if (subtotal >= 100) {
+        freeShipBadge.textContent = "🚚 Livraison offerte !";
+        shippingNote.textContent = "Bravo 🎉 Livraison gratuite dès 100 €.";
+      } else {
+        const reste = 100 - subtotal;
+        freeShipBadge.textContent = "";
+        shippingNote.textContent = `Plus que ${formatEUR(reste)} pour la livraison gratuite.`;
+      }
+    }
+
+    function checkoutInfo() {
+      if (cart.length === 0) {
+        alert("Ton panier est vide 🙂");
+        return;
+      }
+      alert("Panier ajouté ✅\n\nIci, on peut connecter un vrai bouton 'Commander' vers Stripe Checkout si tu veux.");
+    }
+
+    updateCart();
+  </script>
 
 </body>
 </html>
