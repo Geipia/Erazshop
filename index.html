@@ -37,25 +37,43 @@ body{
   color:var(--text);
 }
 
+/* ✅ Petite bannière (cliquable) AU-DESSUS */
+.top-banner{
+  background:var(--accent);
+  color:#fff;
+  text-align:center;
+  padding:.65rem 1rem;
+  font-weight:700;
+  font-size:.95rem;
+  cursor:pointer;
+}
+.top-banner span{
+  text-decoration:underline;
+  text-underline-offset:3px;
+}
+
 /* HEADER */
 header{
   background:var(--card);
   text-align:center;
-  padding:1.2rem 1rem;
+  padding:1.2rem 1rem 1rem;
   box-shadow:0 2px 10px rgba(0,0,0,.08);
 }
 
-header img{
-  height:50px;
-}
+header img{ height:50px; }
+header h1{ margin:.4rem 0 0; }
 
-header h1{
-  margin:.4rem 0 0;
+/* ✅ Message simple : soldes */
+.sale-message{
+  text-align:center;
+  padding:.7rem 1rem;
+  font-weight:700;
+  opacity:.95;
 }
 
 /* SEARCH */
 .search{
-  padding:1rem;
+  padding:.8rem 1rem 1rem;
   text-align:center;
 }
 
@@ -99,9 +117,9 @@ header h1{
 .product img{
   width:100%;
   height:220px;
-  object-fit:contain;            /* ✅ image entière */
-  background:var(--img-bg);      /* ✅ “remplit” le cadre */
-  padding:12px;                  /* ✅ respire */
+  object-fit:contain;       /* ✅ image entière */
+  background:var(--img-bg); /* ✅ “cadre rempli” */
+  padding:12px;
   border-radius:12px;
   margin-bottom:.7rem;
 }
@@ -135,7 +153,6 @@ header h1{
 .product h2{
   font-size:1rem;
   margin:.3rem 0;
-  color:var(--text);
 }
 
 .price{
@@ -178,7 +195,7 @@ footer{
   opacity:.8;
 }
 
-/* ✅ POPUP SOLDES */
+/* ✅ POPUP CODE PROMO */
 .popup-overlay{
   position:fixed;
   inset:0;
@@ -203,8 +220,8 @@ footer{
 }
 
 .popup h3{
-  margin:6px 0 8px;
-  font-size:1.2rem;
+  margin:8px 0 8px;
+  font-size:1.15rem;
 }
 
 .popup p{
@@ -213,14 +230,15 @@ footer{
   line-height:1.35;
 }
 
-.popup .badge{
+.popup .code{
   display:inline-block;
-  background:var(--accent);
-  color:#fff;
-  padding:6px 10px;
-  border-radius:999px;
-  font-weight:700;
-  font-size:.85rem;
+  background:rgba(255,106,0,.14);
+  border:1px dashed var(--accent);
+  color:var(--text);
+  padding:8px 12px;
+  border-radius:12px;
+  font-weight:800;
+  letter-spacing:.06em;
 }
 
 .popup .actions{
@@ -228,7 +246,7 @@ footer{
   gap:10px;
   justify-content:center;
   flex-wrap:wrap;
-  margin-top:10px;
+  margin-top:12px;
 }
 
 .popup button{
@@ -269,10 +287,20 @@ footer{
 
 <body>
 
+<!-- ✅ Bannière cliquable qui ouvre le popup FIRST25 -->
+<div class="top-banner" id="openPromo">
+  🎁 <span>3 € de réduction</span> sur votre première commande — cliquez ici
+</div>
+
 <header>
   <img src="logo.png" alt="ErazShop">
   <h1>ErazShop</h1>
 </header>
+
+<!-- ✅ Message simple (plus “fêtes”) -->
+<div class="sale-message">
+  🔥 Soldes : -25 % sur tous les produits (prix déjà réduits)
+</div>
 
 <div class="search">
   <input id="searchInput" type="text" placeholder="Rechercher un produit…">
@@ -280,19 +308,18 @@ footer{
 
 <div class="products" id="products">
 
-  <!-- GOURDE -->
+  <!-- GOURDE : -30% + nouveau prix -->
   <div class="product" data-name="gourde airup retro olfaction best seller">
-    <div class="badge-sale">-25%</div>
+    <div class="badge-sale">-30%</div>
     <div class="badge-best">⭐ BEST SELLER</div>
     <img src="images/gourde.jpeg" alt="Gourde AirUp">
     <h2>Gourde AirUp</h2>
     <div class="price">
       <span class="old">53,32 €</span>
-      <span class="current">39,99 €</span>
+      <span class="current">37,32 €</span>
     </div>
     <p class="desc">Gourde sans sucre à rétro-olfaction.</p>
 
-    <!-- Stripe -->
     <div style="display:flex;justify-content:center;margin-top:.6rem;">
       <stripe-buy-button
         buy-button-id="buy_btn_1Rc4TZCOWsHWoBEG4Qt0KaJB"
@@ -301,7 +328,7 @@ footer{
     </div>
   </div>
 
-  <!-- BASKETS -->
+  <!-- BASKETS : -25% (prix inchangé) -->
   <div class="product" data-name="baskets reactive sport">
     <div class="badge-sale">-25%</div>
     <img src="images/basket.jpg" alt="Baskets REACTIVE">
@@ -312,7 +339,6 @@ footer{
     </div>
     <p class="desc">Confort moderne et respirant.</p>
 
-    <!-- Stripe -->
     <div style="display:flex;justify-content:center;margin-top:.6rem;">
       <stripe-buy-button
         buy-button-id="buy_btn_1Rc5XsCOWsHWoBEG2nv9HMNE"
@@ -321,7 +347,7 @@ footer{
     </div>
   </div>
 
-  <!-- CASQUE -->
+  <!-- CASQUE : -25% (prix inchangé) -->
   <div class="product" data-name="casque bluetooth p47 sans fil">
     <div class="badge-sale">-25%</div>
     <img src="images/casque.jpeg" alt="Casque Bluetooth P47">
@@ -332,7 +358,6 @@ footer{
     </div>
     <p class="desc">Bluetooth 5.0, pliable.</p>
 
-    <!-- Stripe -->
     <div style="display:flex;justify-content:center;margin-top:.6rem;">
       <stripe-buy-button
         buy-button-id="buy_btn_1Rc8nOCOWsHWoBEGmQVZnG10"
@@ -341,7 +366,7 @@ footer{
     </div>
   </div>
 
-  <!-- HUMIDIFICATEUR -->
+  <!-- HUMIDIFICATEUR : -25% (prix inchangé) -->
   <div class="product" data-name="humidificateur led multicolore zen">
     <div class="badge-sale">-25%</div>
     <img src="images/humidificateur.jpeg" alt="Humidificateur LED">
@@ -352,7 +377,6 @@ footer{
     </div>
     <p class="desc">Lumière apaisante & air sain.</p>
 
-    <!-- Stripe -->
     <div style="display:flex;justify-content:center;margin-top:.6rem;">
       <stripe-buy-button
         buy-button-id="buy_btn_1RcUVBCOWsHWoBEGCNEdp9Ah"
@@ -367,18 +391,17 @@ footer{
   © 2025 – ErazShop
 </footer>
 
-<!-- ✅ POPUP -->
-<div class="popup-overlay" id="salePopup" aria-hidden="true" style="display:none;">
-  <div class="popup" role="dialog" aria-modal="true" aria-label="Promotion">
-    <button class="close" id="closePopup" aria-label="Fermer">✕</button>
-
-    <span class="badge">🎄 OFFRE FÊTES</span>
-    <h3>-25% sur tous les produits !</h3>
-    <p>Profite des promotions de fin d’année : <strong>-25% minimum</strong> sur toute la boutique.</p>
+<!-- ✅ POPUP FIRST25 (ouvre via la bannière) -->
+<div class="popup-overlay" id="promoPopup" aria-hidden="true" style="display:none;">
+  <div class="popup" role="dialog" aria-modal="true" aria-label="Code promo">
+    <button class="close" id="closePromo" aria-label="Fermer">✕</button>
+    <h3>3 € de réduction sur votre première commande</h3>
+    <p>Utilisez le code ci-dessous au moment du paiement :</p>
+    <div class="code">FIRST25</div>
 
     <div class="actions">
-      <button class="primary" id="shopNow">Voir les produits</button>
-      <button class="secondary" id="dismissPopup">Plus tard</button>
+      <button class="primary" id="copyCode">Copier le code</button>
+      <button class="secondary" id="laterPromo">OK</button>
     </div>
   </div>
 </div>
@@ -387,12 +410,15 @@ footer{
 <script async src="https://js.stripe.com/v3/buy-button.js"></script>
 
 <script>
-  // 🔍 Recherche
+  // 🔍 Recherche (nom + accents ignorés)
   const searchInput = document.getElementById("searchInput");
   const cards = Array.from(document.querySelectorAll(".product"));
 
   function normalizeText(str){
-    return (str || "").toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g,"");
+    return (str || "")
+      .toLowerCase()
+      .normalize("NFD")
+      .replace(/[\u0300-\u036f]/g,"");
   }
 
   searchInput.addEventListener("input", () => {
@@ -403,52 +429,44 @@ footer{
     });
   });
 
-  // ✅ Popup : 1 fois par jour
-  const popupKey = "erazshop_sale_popup_last_seen";
+  // ✅ Popup code promo FIRST25 (via bannière)
+  const overlay = document.getElementById("promoPopup");
 
-  function showPopup(){
-    const overlay = document.getElementById("salePopup");
+  function openPromo(){
     overlay.style.display = "flex";
     overlay.setAttribute("aria-hidden","false");
     document.body.style.overflow = "hidden";
   }
 
-  function hidePopup(){
-    const overlay = document.getElementById("salePopup");
+  function closePromo(){
     overlay.style.display = "none";
     overlay.setAttribute("aria-hidden","true");
     document.body.style.overflow = "";
   }
 
-  function canShowPopup(){
-    const last = localStorage.getItem(popupKey);
-    if(!last) return true;
-    const lastDate = new Date(parseInt(last,10));
-    const now = new Date();
-    return lastDate.toDateString() !== now.toDateString();
-  }
+  document.getElementById("openPromo").addEventListener("click", openPromo);
+  document.getElementById("closePromo").addEventListener("click", closePromo);
+  document.getElementById("laterPromo").addEventListener("click", closePromo);
 
-  window.addEventListener("load", () => {
-    if(canShowPopup()){
-      showPopup();
-      localStorage.setItem(popupKey, Date.now().toString());
+  // Clique sur fond => fermer
+  overlay.addEventListener("click", (e) => {
+    if(e.target.id === "promoPopup") closePromo();
+  });
+
+  // Copier le code
+  document.getElementById("copyCode").addEventListener("click", async () => {
+    try{
+      await navigator.clipboard.writeText("FIRST25");
+      document.getElementById("copyCode").textContent = "Copié ✅";
+      setTimeout(() => (document.getElementById("copyCode").textContent = "Copier le code"), 1200);
+    }catch(e){
+      alert("Impossible de copier automatiquement. Code : FIRST25");
     }
   });
 
-  document.getElementById("closePopup").addEventListener("click", hidePopup);
-  document.getElementById("dismissPopup").addEventListener("click", hidePopup);
-
-  document.getElementById("salePopup").addEventListener("click", (e) => {
-    if(e.target.id === "salePopup") hidePopup();
-  });
-
-  document.getElementById("shopNow").addEventListener("click", () => {
-    hidePopup();
-    document.getElementById("products").scrollIntoView({behavior:"smooth", block:"start"});
-  });
-
+  // ESC => fermer
   window.addEventListener("keydown", (e) => {
-    if(e.key === "Escape") hidePopup();
+    if(e.key === "Escape") closePromo();
   });
 </script>
 
